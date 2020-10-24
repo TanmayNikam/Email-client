@@ -25,6 +25,7 @@ public class Authentication {
         try
         {
             Session session = Session.getInstance(account.getProps(),authenticator);
+            account.setSession(session);
             Store store = session.getStore();
             store.connect("imap.gmail.com", account.getUserid(), account.getPassword());
             account.setStore(store);

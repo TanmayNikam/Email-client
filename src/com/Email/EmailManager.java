@@ -11,11 +11,17 @@ public class EmailManager {
     {
         return root;
     }
+    private AccountInfo account;
     public void AddEmailAccount(AccountInfo account)
     {
+        this.account = account;
         EmailTreeItem<String> treeitem = new EmailTreeItem<String>(account.getUserid());
         root.getChildren().add(treeitem);
         FetchingFolders fetch = new FetchingFolders(account.getStore(),treeitem);
         fetch.start();
+    }
+
+    public AccountInfo getAccount() {
+        return account;
     }
 }

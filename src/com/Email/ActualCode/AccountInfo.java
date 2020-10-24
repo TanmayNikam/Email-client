@@ -1,4 +1,5 @@
 package com.Email.ActualCode;
+import javax.mail.Session;
 import javax.mail.Store;
 import java.util.Properties;
 public class AccountInfo {
@@ -6,6 +7,16 @@ public class AccountInfo {
     private String password;
     private Store store;
     private Properties props;
+    private Session session;
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
     public String getUserid() {
         return userid;
     }
@@ -37,4 +48,5 @@ public class AccountInfo {
         props.put("mail.smtps.auth", "true");
         props.put("outgoingHost", "smtp.gmail.com");
     }
+
 }

@@ -17,6 +17,9 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Store;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -57,8 +60,11 @@ public class MainWindowController extends BaseController implements Initializabl
         sc.getStylesheets().remove("com/Email/View/dark.css");
     }
     @FXML
-    void LogoutAction() {
-
+    void LogoutAction() throws MessagingException {
+            emailManager.getAccount().getStore().close();
+            Stage stage =(Stage)web.getScene().getWindow();
+            stage.close();
+            viewFactory.showLoginWindow();
     }
     private RenderMessage rm;
     @Override
@@ -105,4 +111,9 @@ public class MainWindowController extends BaseController implements Initializabl
         MailTreeView.setShowRoot(false);
     }
 
+    @FXML
+    void ComposeMessageAction() {
+        viewFactory.showComposeMessageWindow();
+
+    }
 }

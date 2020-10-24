@@ -24,6 +24,11 @@
                   <MenuItem mnemonicParsing="false" onAction="#LogoutAction" text="Logout" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Compose">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ComposeMessageAction" text="New Message" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <TreeView fx:id="MailTreeView" layoutY="26.0" prefHeight="525.0" prefWidth="194.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="26.0" />

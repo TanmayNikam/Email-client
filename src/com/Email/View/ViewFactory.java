@@ -1,6 +1,7 @@
 package com.Email.View;
 
 import com.Email.Controllers.BaseController;
+import com.Email.Controllers.ComposeMessageController;
 import com.Email.Controllers.LoginController;
 import com.Email.Controllers.MainWindowController;
 import com.Email.EmailManager;
@@ -49,5 +50,10 @@ public class ViewFactory {
     {
         BaseController Main = new MainWindowController("MainWindow.fxml",eMailManager,this);
         intializeStage(Main);
+    }
+    public void showComposeMessageWindow()
+    {
+        BaseController compose = new ComposeMessageController("ComposeMsg.fxml",eMailManager,this);
+        intializeStage(compose);
     }
 }
