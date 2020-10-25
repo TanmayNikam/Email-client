@@ -5,6 +5,7 @@ import com.Email.ActualCode.Authentication;
 import com.Email.EmailManager;
 import com.Email.View.ViewFactory;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,3 +60,4 @@ public class LoginController extends BaseController{
     }
 
 }
+

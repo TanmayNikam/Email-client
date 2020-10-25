@@ -50,14 +50,13 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     void DarkThemeAction() {
-        Scene sc = viewFactory.getActiveScene();
-        sc.getStylesheets().add("com/Email/View/dark.css");
+        web.getScene().getStylesheets().add("com/Email/View/dark.css");
     }
 
     @FXML
     void LightThemeAction() {
-        Scene sc = viewFactory.getActiveScene();
-        sc.getStylesheets().remove("com/Email/View/dark.css");
+        web.getScene().getStylesheets().remove("com/Email/View/dark.css");
+
     }
     @FXML
     void LogoutAction() throws MessagingException {
@@ -83,7 +82,8 @@ public class MainWindowController extends BaseController implements Initializabl
             if(messages != null)
             {
                 rm.setMessages(messages);
-                rm.restart();
+                //rm.restart();
+                //web.getEngine().load("https:/www.google.com");
             }
         });
     }

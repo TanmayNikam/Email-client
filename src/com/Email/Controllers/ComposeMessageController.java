@@ -4,6 +4,7 @@ import com.Email.ActualCode.SendingEmail;
 import com.Email.EmailManager;
 import com.Email.View.ViewFactory;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -33,12 +34,16 @@ public class ComposeMessageController extends BaseController{
                         Error_Label_Id.setText(send.getResult());
                     }
             );
-            Stage stage = (Stage)To_Id.getScene().getWindow();
-            stage.close();
+            if(Error_Label_Id.getText()=="Success") {
+                Stage stage = (Stage) To_Id.getScene().getWindow();
+                stage.close();
+            }
+
     }
     @FXML
     private TextArea text;
 
     @FXML
     private Label Error_Label_Id;
+
 }

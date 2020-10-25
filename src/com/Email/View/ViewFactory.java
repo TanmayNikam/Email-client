@@ -16,11 +16,7 @@ public class ViewFactory {
     public ViewFactory(EmailManager eMailManager) {
         this.eMailManager = eMailManager;
     }
-    private Scene ActiveScene;
 
-    public Scene getActiveScene() {
-        return ActiveScene;
-    }
     private void intializeStage(BaseController controller) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(controller.getFxmlfilename()));
         loader.setController(controller);
@@ -31,7 +27,6 @@ public class ViewFactory {
             System.out.println(e);
         }
         Scene sc = new Scene(parent);
-        ActiveScene = sc;
         Stage stage = new Stage();
         stage.setScene(sc);
         stage.setTitle("MyMail");

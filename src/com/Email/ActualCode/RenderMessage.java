@@ -19,10 +19,7 @@ public class RenderMessage extends Service {
     public RenderMessage(WebEngine webEngine) {
         this.webEngine = webEngine;
         this.sb = new StringBuffer();
-        this.setOnSucceeded(e->
-        {
-            DisplayMesssage();
-        });
+
     }
     public void setMessages(MessageDS messages)
     {
@@ -43,15 +40,15 @@ public class RenderMessage extends Service {
         else if(multipart(contentType))
         {
             Multipart multipart = (Multipart)message.getContent();
-            for(int i = multipart.getCount()-1;i>0;i--) {
+            for(int i = multipart.getCount()-1;i>=0;i--) {
                 BodyPart body = multipart.getBodyPart(i);
                 String type = body.getContentType();
-                if(Simple(type))
+                if(Simple(type)) {
                     sb.append(body.getContent().toString());
+                }
             }
         }
     }
-
     private boolean multipart(String contentType) {
         if(contentType.contains("multipart"))
             return true;
