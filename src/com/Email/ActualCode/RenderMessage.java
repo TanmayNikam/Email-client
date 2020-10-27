@@ -8,6 +8,7 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
 import java.io.IOException;
 
 public class RenderMessage extends Service {
@@ -19,7 +20,9 @@ public class RenderMessage extends Service {
     public RenderMessage(WebEngine webEngine) {
         this.webEngine = webEngine;
         this.sb = new StringBuffer();
-
+        this.setOnSucceeded(e->{
+            DisplayMesssage();
+        });
     }
     public void setMessages(MessageDS messages)
     {
@@ -29,24 +32,30 @@ public class RenderMessage extends Service {
     {
         webEngine.loadContent(sb.toString());
     }
-    private void loadMessage() throws MessagingException, IOException {
-        sb.setLength(0);
-        Message message = messagesds.getMessage();
-        String contentType = message.getContentType();
-        if(Simple(contentType))
-        {
-            sb.append(message.getContent().toString());
-        }
-        else if(multipart(contentType))
-        {
-            Multipart multipart = (Multipart)message.getContent();
-            for(int i = multipart.getCount()-1;i>=0;i--) {
-                BodyPart body = multipart.getBodyPart(i);
-                String type = body.getContentType();
-                if(Simple(type)) {
-                    sb.append(body.getContent().toString());
+    private void loadMessage()  {
+        try{
+            sb.setLength(0);
+            Message message = messagesds.getMessage();
+            String contentType= message.getContentType();
+            if(Simple(contentType))
+            {
+                sb.append(message.getContent().toString());
+            }
+            else if(multipart(contentType))
+            {
+                Multipart multipart=(Multipart)message.getContent();
+                for(int i=multipart.getCount()-1;i>=0;i--) {
+                    BodyPart bodyPart = multipart.getBodyPart(i);
+                    if(Simple(bodyPart.getContentType()))
+                    {
+                        sb.append(bodyPart.getContent().toString());
+                    }
                 }
             }
+        } catch (MessagingException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
     private boolean multipart(String contentType) {
@@ -56,7 +65,7 @@ public class RenderMessage extends Service {
             return false;
     }
     private boolean Simple(String contentType) {
-        if(contentType.contains("HTML/TEXT") || contentType.contains("text") || contentType.contains("mixed"))
+        if(contentType.contains("TEXT/HTML") || contentType.contains("text") || contentType.contains("mixed"))
             return true;
         else
             return false;

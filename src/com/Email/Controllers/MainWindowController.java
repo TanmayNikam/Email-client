@@ -82,8 +82,7 @@ public class MainWindowController extends BaseController implements Initializabl
             if(messages != null)
             {
                 rm.setMessages(messages);
-                //rm.restart();
-                //web.getEngine().load("https:/www.google.com");
+                rm.restart();
             }
         });
     }
