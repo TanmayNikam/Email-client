@@ -1,7 +1,6 @@
 package com.Email.Controllers;
 
 import com.Email.ActualCode.MessageDS;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
@@ -32,7 +31,7 @@ public class EmailTreeItem<String> extends TreeItem<String> {
             messages.add(Messages);
             if(!isRead)
             {
-                upadteCount();
+                upadateCount();
             }
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -44,10 +43,16 @@ public class EmailTreeItem<String> extends TreeItem<String> {
         else
             this.setValue(this.name);
     }
-    public void upadteCount()
+    public void upadateCount()
     {
         count+=1;
         updateName();
     }
 
+    public void AddEmailToTop(Message message) throws MessagingException {
+        boolean read = false;
+        MessageDS Messages = new MessageDS(message.getSubject(),message.getFrom()[0].toString(),message.getSentDate(),message,read);
+        messages.add(0,Messages);
+
+    }
 }

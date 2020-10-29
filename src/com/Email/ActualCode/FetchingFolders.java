@@ -7,16 +7,21 @@ import javafx.concurrent.Worker;
 import javafx.scene.control.TreeItem;
 
 import javax.mail.Folder;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Store;
+import javax.mail.event.MessageCountEvent;
+import javax.mail.event.MessageCountListener;
+import java.util.List;
 
 public class FetchingFolders extends Service<Void> {
     private Store store;
     private EmailTreeItem<String> foldersroot;
-
-    public FetchingFolders(Store store, EmailTreeItem<String> foldersroot) {
+    private List<Folder> folderList;
+    public FetchingFolders(Store store, EmailTreeItem<String> foldersroot, List<Folder> folderList) {
         this.store = store;
         this.foldersroot = foldersroot;
+        this.folderList = folderList;
     }
 
     @Override
@@ -43,16 +48,39 @@ public class FetchingFolders extends Service<Void> {
     private void handleFolders(Folder[] folders, EmailTreeItem<String> foldersroot) throws MessagingException {
         for (Folder folder:folders)
         {
+            folderList.add(folder);
             EmailTreeItem<String> item = new EmailTreeItem<String>(folder.getName());
             foldersroot.getChildren().add(item);
             foldersroot.setExpanded(true);
             readmessage(folder,item);
+            addmessageListener(folder,item);
             if(folder.getType() == folder.HOLDS_FOLDERS)
             {
                Folder[] subfolders = folder.list();
                handleFolders(subfolders,item);
             }
         }
+    }
+
+    private void addmessageListener(Folder folder, EmailTreeItem<String> item) {
+        folder.addMessageCountListener(new MessageCountListener() {
+            @Override
+            public void messagesAdded(MessageCountEvent messageCountEvent) {
+                for(int i=0;i<messageCountEvent.getMessages().length;i++)
+                {
+                    try {
+                        Message message = folder.getMessage(folder.getMessageCount()-i);
+                        item.AddEmailToTop(message);
+                    } catch (MessagingException e) {
+
+                    }
+                }
+            }
+            @Override
+            public void messagesRemoved(MessageCountEvent messageCountEvent) {
+
+            }
+        });
     }
 
     private void readmessage(Folder folder, EmailTreeItem<String> emailTreeItem) {

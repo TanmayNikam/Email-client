@@ -25,9 +25,7 @@ public class RenderMessage extends Service {
         });
     }
     public void setMessages(MessageDS messages)
-    {
-        this.messagesds = messages;
-    }
+    { this.messagesds = messages; }
     private void DisplayMesssage()
     {
         webEngine.loadContent(sb.toString());
@@ -44,13 +42,8 @@ public class RenderMessage extends Service {
             else if(multipart(contentType))
             {
                 Multipart multipart=(Multipart)message.getContent();
-                for(int i=multipart.getCount()-1;i>=0;i--) {
-                    BodyPart bodyPart = multipart.getBodyPart(i);
-                    if(Simple(bodyPart.getContentType()))
-                    {
-                        sb.append(bodyPart.getContent().toString());
-                    }
-                }
+                loadMultipart(multipart,sb);
+
             }
         } catch (MessagingException e) {
             System.out.println(e);
@@ -58,6 +51,26 @@ public class RenderMessage extends Service {
             System.out.println(e);
         }
     }
+
+    private void loadMultipart(Multipart multipart, StringBuffer sb) throws MessagingException, IOException {
+        for(int i=multipart.getCount()-1;i>=0;i--) {
+            BodyPart bodyPart = multipart.getBodyPart(i);
+            if(Simple(bodyPart.getContentType()))
+            {
+                sb.append(bodyPart.getContent().toString());
+            }
+            else if(multipart(bodyPart.getContentType()))
+            {
+                Multipart multipart1 = (Multipart)bodyPart.getContent();
+                loadMultipart(multipart1,sb);
+            } else if(!PlainText(bodyPart.getContentType()))
+            {
+                MimeBodyPart mimeBodyPart = (MimeBodyPart) bodyPart;
+                messagesds.addAttachments(mimeBodyPart);
+            }
+        }
+    }
+
     private boolean multipart(String contentType) {
         if(contentType.contains("multipart"))
             return true;
@@ -69,6 +82,11 @@ public class RenderMessage extends Service {
             return true;
         else
             return false;
+    }
+
+    private boolean PlainText(String contentType)
+    {
+        return (contentType.contains("TEXT/PLAIN"));
     }
 
     @Override
@@ -87,4 +105,5 @@ public class RenderMessage extends Service {
             }
         };
     }
+
 }

@@ -1,5 +1,6 @@
 package com.Email.Controllers;
 
+import com.Email.ActualCode.DownloadAttachments;
 import com.Email.ActualCode.MessageDS;
 import com.Email.ActualCode.RenderMessage;
 import com.Email.EmailManager;
@@ -9,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -25,6 +24,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
+
+    private MenuItem Attachments = new MenuItem("Attachments");
 
     @FXML
     private TreeView<String> MailTreeView;
@@ -44,26 +45,38 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private TableColumn<MessageDS, String> SubjectCol;
 
+    @FXML
+    private Label Attachments_Label;
+
     public MainWindowController(String fxmlfilename, EmailManager emailManager, ViewFactory viewFactory) {
         super(fxmlfilename, emailManager, viewFactory);
     }
 
     @FXML
     void DarkThemeAction() {
+        viewFactory.setDarktheme(true);
+        MailTableView.getScene().getStylesheets().add("com/Email/View/dark.css");
         web.getScene().getStylesheets().add("com/Email/View/dark.css");
+        try{
+            web.getEngine().setUserStyleSheetLocation(getClass().getResource("/View/dark.css").toString());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
     @FXML
     void LightThemeAction() {
         web.getScene().getStylesheets().remove("com/Email/View/dark.css");
-
+        MailTableView.getScene().getStylesheets().remove("com/Email/View/dark.css");
+        viewFactory.setDarktheme(false);
     }
     @FXML
     void LogoutAction() throws MessagingException {
             emailManager.getAccount().getStore().close();
             Stage stage =(Stage)web.getScene().getWindow();
             stage.close();
-            viewFactory.showLoginWindow();
     }
     private RenderMessage rm;
     @Override
@@ -73,7 +86,22 @@ public class MainWindowController extends BaseController implements Initializabl
         FolderSelection();
         setrendermessage();
         selectmsg();
+        SetupContextMenu();
     }
+
+    private void SetupContextMenu() {
+        Attachments.setOnAction(e->
+        {
+            if(emailManager.getSelectedMessage().HasAttach()) {
+                Attachments_Label.setText("Attachments Found");
+                DownloadAttachments da = new DownloadAttachments(emailManager);
+                da.Download();
+            }
+            else
+                Attachments_Label.setText("No Attachments Found");
+        });
+    }
+
 
     private void selectmsg() {
         MailTableView.setOnMouseClicked(e->
@@ -81,6 +109,7 @@ public class MainWindowController extends BaseController implements Initializabl
             MessageDS messages = (MessageDS)MailTableView.getSelectionModel().getSelectedItem();
             if(messages != null)
             {
+                emailManager.setSelectedMessage(messages);
                 rm.setMessages(messages);
                 rm.restart();
             }
@@ -104,6 +133,7 @@ public class MainWindowController extends BaseController implements Initializabl
             if(item!=null){
                 MailTableView.setItems(item.getMessages());}
         });
+        MailTableView.setContextMenu(new ContextMenu(Attachments));
     }
     private void setTreeview() {
         MailTreeView.setRoot(emailManager.getFolders());
@@ -113,6 +143,5 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     void ComposeMessageAction() {
         viewFactory.showComposeMessageWindow();
-
     }
 }

@@ -12,7 +12,11 @@ import javafx.stage.Stage;
 
 public class ViewFactory {
     private EmailManager eMailManager;
-
+    private Scene ActiveScene;
+    public void setDarktheme(boolean darktheme) {
+        this.darktheme = darktheme;
+    }
+    private boolean darktheme=false;
     public ViewFactory(EmailManager eMailManager) {
         this.eMailManager = eMailManager;
     }
@@ -27,6 +31,11 @@ public class ViewFactory {
             System.out.println(e);
         }
         Scene sc = new Scene(parent);
+        ActiveScene=sc;
+        if(darktheme)
+            ActiveScene.getStylesheets().add("com/Email/View/dark.css");
+        else
+            ActiveScene.getStylesheets().remove("com/Email/View/dark.css");
         Stage stage = new Stage();
         stage.setScene(sc);
         stage.setTitle("MyMail");
