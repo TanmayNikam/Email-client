@@ -13,6 +13,7 @@ public class Authentication {
         this.account = account;
         this.emailManager = emailManager;
     }
+    // checks user credentials
 
     public String Login()
     {

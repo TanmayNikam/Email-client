@@ -2,9 +2,6 @@ package com.Email;
 
 import com.Email.View.ViewFactory;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -14,7 +11,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         ViewFactory view = new ViewFactory(new EmailManager());
         view.showLoginWindow();
     }

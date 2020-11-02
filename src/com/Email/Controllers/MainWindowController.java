@@ -56,19 +56,10 @@ public class MainWindowController extends BaseController implements Initializabl
     void DarkThemeAction() {
         viewFactory.setDarktheme(true);
         MailTableView.getScene().getStylesheets().add("com/Email/View/dark.css");
-        web.getScene().getStylesheets().add("com/Email/View/dark.css");
-        try{
-            web.getEngine().setUserStyleSheetLocation(getClass().getResource("/View/dark.css").toString());
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
     }
 
     @FXML
     void LightThemeAction() {
-        web.getScene().getStylesheets().remove("com/Email/View/dark.css");
         MailTableView.getScene().getStylesheets().remove("com/Email/View/dark.css");
         viewFactory.setDarktheme(false);
     }

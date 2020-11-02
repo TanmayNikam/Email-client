@@ -16,11 +16,11 @@ public class MessageDS {
     private Message message;
     private Boolean isRead;
     private List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
-
+    private boolean hasAttach=false;
     public boolean HasAttach() {
         return hasAttach;
     }
-    private boolean hasAttach=false;
+
     public MessageDS(String subject, String sender, Date date, Message message, Boolean isRead) {
         this.Subject = new SimpleStringProperty(subject);
         this.Sender = new SimpleStringProperty(sender);

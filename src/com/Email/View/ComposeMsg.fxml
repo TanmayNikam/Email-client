@@ -15,7 +15,7 @@
       <Button layoutX="528.0" layoutY="592.0" mnemonicParsing="false" onAction="#SendAction" prefHeight="38.0" prefWidth="106.0" text="Send" />
       <Label fx:id="Error_Label_Id" layoutX="32.0" layoutY="598.0" prefHeight="26.0" prefWidth="223.0" />
       <Label layoutX="43.0" layoutY="145.0" prefHeight="38.0" prefWidth="73.0" text="Message:" />
-      <HTMLEditor fx:id="text" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="37.0" layoutY="236.0" prefHeight="347.0" prefWidth="590.0" />
+      <HTMLEditor fx:id="text" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="37.0" layoutY="197.0" prefHeight="386.0" prefWidth="590.0" />
       <Button layoutX="535.0" layoutY="145.0" mnemonicParsing="false" onAction="#AttachAction" prefHeight="38.0" prefWidth="106.0" text="Attach" />
       <Label text="Label" />
    </children>

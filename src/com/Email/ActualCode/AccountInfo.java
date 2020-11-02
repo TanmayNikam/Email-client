@@ -8,7 +8,7 @@ public class AccountInfo {
     private Store store;
     private Properties props;
     private Session session;
-
+    // Holds account info
     public Session getSession() {
         return session;
     }

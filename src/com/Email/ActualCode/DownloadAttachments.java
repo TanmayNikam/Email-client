@@ -8,7 +8,6 @@ import javafx.concurrent.Task;
 
 import javax.mail.internet.MimeBodyPart;
 import java.io.File;
-
 public class DownloadAttachments{
     private EmailManager emailManager;
     private String location = System.getProperty("user.home") + "/Downloads/";

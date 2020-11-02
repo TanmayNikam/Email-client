@@ -41,6 +41,6 @@
         </columns>
       </TableView>
       <Label fx:id="Attachments_Label" layoutX="195.0" layoutY="207.0" prefHeight="26.0" prefWidth="505.0" />
-      <WebView fx:id="web" layoutX="195.0" layoutY="235.0" prefHeight="316.0" prefWidth="505.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="235.0" />
+      <WebView fx:id="web" layoutX="195.0" layoutY="232.0" prefHeight="319.0" prefWidth="506.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="232.0" />
    </children>
 </AnchorPane>

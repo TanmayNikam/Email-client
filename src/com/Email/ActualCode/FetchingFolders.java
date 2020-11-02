@@ -82,6 +82,7 @@ public class FetchingFolders extends Service<Void> {
             }
         });
     }
+    // Fetches folders and add them to tree
 
     private void readmessage(Folder folder, EmailTreeItem<String> emailTreeItem) {
         Service fetchMsg = new Service() {
