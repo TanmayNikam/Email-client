@@ -72,7 +72,7 @@ public class FetchingFolders extends Service<Void> {
                         Message message = folder.getMessage(folder.getMessageCount()-i);
                         item.AddEmailToTop(message);
                     } catch (MessagingException e) {
-
+                        System.out.println(e);
                     }
                 }
             }

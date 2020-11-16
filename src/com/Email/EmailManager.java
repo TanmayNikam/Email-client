@@ -34,7 +34,7 @@ public class EmailManager {
     public EmailManager()
     {
         update = new UpdatingFolders(folderList);
-        update.start();
+        update.restart();
     }
     private List<Folder> folderList=new ArrayList<Folder>();
     public void AddEmailAccount(AccountInfo account)
@@ -43,7 +43,7 @@ public class EmailManager {
         EmailTreeItem<String> treeitem = new EmailTreeItem<String>(account.getUserid());
         root.getChildren().add(treeitem);
         FetchingFolders fetch = new FetchingFolders(account.getStore(),treeitem,folderList);
-        fetch.start();
+        fetch.restart();
     }
 
     public AccountInfo getAccount() {

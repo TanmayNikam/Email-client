@@ -9,11 +9,8 @@ import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.sql.DataSource;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-//for sending email
 
 public class SendingEmail extends Service<Void> {
     private List<File> attachments;

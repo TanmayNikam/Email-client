@@ -50,8 +50,7 @@ public class EmailTreeItem<String> extends TreeItem<String> {
     }
 
     public void AddEmailToTop(Message message) throws MessagingException {
-        boolean read = false;
-        MessageDS Messages = new MessageDS(message.getSubject(),message.getFrom()[0].toString(),message.getSentDate(),message,read);
+        MessageDS Messages = new MessageDS(message.getSubject(),message.getFrom()[0].toString(),message.getSentDate(),message,false);
         messages.add(0,Messages);
 
     }

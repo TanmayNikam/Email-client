@@ -35,7 +35,7 @@ public class Authentication {
         catch(NoSuchProviderException e)
         {
             System.out.println(e);
-            return "Network Issue";
+            return "Unexpected Error";
         }
         catch(MessagingException e)
         {

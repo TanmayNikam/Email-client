@@ -23,12 +23,12 @@ public class UpdatingFolders extends Service {
                 {
                     try
                     {
-                        Thread.sleep(5000);
+                        Thread.sleep(1);
                         for(Folder folders:listFolders )
                         {
                             if(folders.getType()!=Folder.HOLDS_FOLDERS && folders.isOpen())
                             {
-                                folders.getMessageCount();
+                                folders.getNewMessageCount();
                             }
                         }
                     }
